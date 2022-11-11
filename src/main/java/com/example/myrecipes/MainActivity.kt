@@ -17,10 +17,11 @@ class MainActivity : AppCompatActivity() {
         // Setup view binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+
+        binding.converterButton.setOnClickListener { launchConverterActivity() }
     }
 
-    private fun launchConverter() {
+    private fun launchConverterActivity() {
         listIntent = Intent(this, ConverterActivity::class.java)
         startActivity(listIntent)
     }
