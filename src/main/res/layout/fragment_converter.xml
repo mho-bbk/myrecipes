@@ -5,9 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".converter.ConverterFragment">
 
+    <!-- TODO: Implement a border (using style?) -->
     <Spinner
         android:id="@+id/ingredient_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:padding="4dp" />
 
 </FrameLayout>
