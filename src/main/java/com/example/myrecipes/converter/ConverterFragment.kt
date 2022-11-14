@@ -42,6 +42,27 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return binding.root
     }
 
+    /**
+     * Converts cups to grams and displays it on the screen
+     */
+    private fun convert() {
+        val cupString = binding.cupsInput.text.toString()
+        val cups = cupString.toDoubleOrNull()
+
+        if (cups == null || cups == 0.0) {
+            // TODO - refactor out later eg displayText() method
+            binding.displayConvertedText.text = "Invalid value added. Try again."
+            return
+        }
+
+        // Value of conversion depends on ingredient selected
+//        val ingredientDensity = when(ingredient)
+        // is (all-purpose) flour -> 1:125
+        // is (caster) sugar -> 1:225
+        // is butter -> 1:227
+        // is milk -> 1:245
+    }
+
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         // NB: Item is already selected when moved to this Fragment (default first item Flour)
         if (p0 != null) {
