@@ -52,26 +52,33 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val cups = cupString.toDoubleOrNull()
 
         if (cups == null || cups == 0.0) {
-            // TODO - refactor out later eg displayText() method
-            binding.displayConvertedText.text = getString(R.string.invalid_input)
+            display(getString(R.string.invalid_input))
             return
         }
 
         binding.displayConvertedText.text = getString(R.string.x_cups_to_x_grams, cups, 0.0)
 
         // Value of conversion depends on ingredient selected
-//        val ingredientDensity = when(ingredient)
-        // is (all-purpose) flour -> 1:125
-        // is (caster) sugar -> 1:225
-        // is butter -> 1:227
-        // is milk -> 1:245
+        val ingredientDensity = when(ingredient) {
+            "Flour" -> 125.16
+            "Sugar" -> 200.86
+            "Butter" -> 226.89
+            else -> 244.87 //is Milk
+        }
+
+        val grams = ingredientDensity * cups
+        display(getString(R.string.x_cups_to_x_grams, cups, grams))
+    }
+
+    private fun display(displayText: String) {
+        binding.displayConvertedText.text = displayText
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         // NB: Item is already selected when moved to this Fragment (default first item Flour)
         if (p0 != null) {
             ingredient = p0.getItemAtPosition(p2).toString()
-            Toast.makeText(context, "Item selected: " + ingredient, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Item selected: " + ingredient, Toast.LENGTH_SHORT).show()
         }
     }
 
