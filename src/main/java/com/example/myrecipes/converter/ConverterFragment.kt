@@ -39,6 +39,8 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.ingredientSpinner.onItemSelectedListener = this
 
+        binding.conversionButton.setOnClickListener { convert() }
+
         return binding.root
     }
 
@@ -51,9 +53,11 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         if (cups == null || cups == 0.0) {
             // TODO - refactor out later eg displayText() method
-            binding.displayConvertedText.text = "Invalid value added. Try again."
+            binding.displayConvertedText.text = getString(R.string.invalid_input)
             return
         }
+
+        binding.displayConvertedText.text = getString(R.string.x_cups_to_x_grams, cups, 0.0)
 
         // Value of conversion depends on ingredient selected
 //        val ingredientDensity = when(ingredient)

@@ -33,15 +33,15 @@
         app:layout_constraintStart_toEndOf="@id/cups_input"
         app:layout_constraintTop_toTopOf="@id/cups_input"
         app:layout_constraintBottom_toBottomOf="@id/cups_input"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:padding="4dp"
-        android:text="cups"/>
+        android:text="@string/cups_txt"/>
 
     <Button
         android:id="@+id/conversion_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Convert to grams"
+        android:text="@string/convert_to_grams_txt"
         app:layout_constraintTop_toBottomOf="@id/cups_text"
         app:layout_constraintStart_toEndOf="@id/cups_text"
         android:layout_marginTop="50dp"/>
@@ -54,6 +54,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="100dp"
-        tools:text="X cups to X grams"/>
+        tools:text="@string/x_cups_to_x_grams"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
