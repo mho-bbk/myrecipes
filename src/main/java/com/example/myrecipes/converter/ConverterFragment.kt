@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.myrecipes.R
 import com.example.myrecipes.databinding.FragmentConverterBinding
 
 
-class ConverterFragment : Fragment() {
+class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentConverterBinding
+    private lateinit var ingredient: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +37,20 @@ class ConverterFragment : Fragment() {
             binding.ingredientSpinner.adapter = adapter
         }
 
+        binding.ingredientSpinner.onItemSelectedListener = this
+
         return binding.root
     }
 
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        // NB: Item is already selected when moved to this Fragment (default first item Flour)
+        if (p0 != null) {
+            ingredient = p0.getItemAtPosition(p2).toString()
+            Toast.makeText(context, "Item selected: " + ingredient, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        Toast.makeText(context, "You must select an ingredient", Toast.LENGTH_SHORT).show()
+    }
 }
