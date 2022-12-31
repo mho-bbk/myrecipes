@@ -8,22 +8,25 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import com.example.myrecipes.R
 import com.example.myrecipes.databinding.FragmentConverterBinding
-
 
 class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentConverterBinding
     private lateinit var ingredient: String
 
+    private val viewModel: ConverterViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        // Inflate the layout for this fragment with view binding
-        binding = FragmentConverterBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment with *data* binding
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_converter, container, false)
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
@@ -39,9 +42,21 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.ingredientSpinner.onItemSelectedListener = this
 
-        binding.conversionButton.setOnClickListener { convert() }
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Data binding
+        binding.converterViewModel = viewModel
+
+        // Specify the fragment view as the lifecycle owner of the binding.
+        // This is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        // Set up click listener for convert button
+        binding.conversionButton.setOnClickListener { convert() }
     }
 
     /**
@@ -49,29 +64,9 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
      */
     private fun convert() {
         val cupString = binding.cupsInput.text.toString()
-        val cups = cupString.toDoubleOrNull()
-
-        if (cups == null || cups == 0.0) {
-            display(getString(R.string.invalid_input))
-            return
+        if(viewModel.isInputValid(cupString)) {
+            viewModel.convert(cupString, ingredient)
         }
-
-        binding.displayConvertedText.text = getString(R.string.x_cups_to_x_grams, cups, 0.0)
-
-        // Value of conversion depends on ingredient selected
-        val ingredientDensity = when(ingredient) {
-            "Flour" -> 125.16
-            "Sugar" -> 200.86
-            "Butter" -> 226.89
-            else -> 244.87 //is Milk
-        }
-
-        val grams = ingredientDensity * cups
-        display(getString(R.string.x_cups_to_x_grams, cups, grams))
-    }
-
-    private fun display(displayText: String) {
-        binding.displayConvertedText.text = displayText
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
