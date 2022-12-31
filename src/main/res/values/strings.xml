@@ -3,7 +3,9 @@
     <string name="convert_to_grams_txt">Convert to grams</string>
     <string name="cups_txt">cups</string>
     <string name="x_cups_to_x_grams">%.2f cups to %.2f grams</string>
-    <string name="invalid_input">Invalid value added. Try again.</string>
+    <string name="invalid_input">Invalid value. Try again.</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="ingredient_quantity">Number of</string>
 
     <!-- Ingredients for Converter Spinner -->
     <string-array name="ingredients">

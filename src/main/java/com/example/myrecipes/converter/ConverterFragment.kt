@@ -20,7 +20,7 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Inflate the layout for this fragment with view binding
         binding = FragmentConverterBinding.inflate(inflater, container, false)
