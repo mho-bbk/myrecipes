@@ -3,6 +3,7 @@ package com.example.myrecipes.converter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+
 class ConverterViewModel : ViewModel() {
 
     // TODO - ingredientQuantity and convertedIngredientQuantity perhaps not necessary
@@ -12,7 +13,7 @@ class ConverterViewModel : ViewModel() {
         get() = _ingredientQuantity
 
     private var _convertedIngredientQuantity = MutableLiveData(0.00)
-    private val convertedIngredientQuantity: LiveData<Double>
+    val convertedIngredientQuantity: LiveData<Double>
         get() = _convertedIngredientQuantity
 
     private var _convertedString = MutableLiveData("")
@@ -26,10 +27,10 @@ class ConverterViewModel : ViewModel() {
         _ingredientQuantity.value = cupString.toDoubleOrNull()
 
         // Value of conversion depends on ingredient selected
-        val ingredientDensity = when(ingredient) {
-            "Flour" -> FLOUR
-            "Sugar" -> SUGAR
-            "Butter" -> BUTTER
+        val ingredientDensity = when(ingredient.uppercase()) {
+            "FLOUR" -> FLOUR
+            "SUGAR" -> SUGAR
+            "BUTTER" -> BUTTER
             else -> MILK
         }
 
