@@ -19,4 +19,7 @@ interface RecipeDao {
 
     @Delete
     suspend fun deleteRecipe(recipe: Recipe)
+
+    @Query("DELETE FROM recipes")
+    suspend fun deleteAll()
 }
