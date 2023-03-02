@@ -4,27 +4,55 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myrecipes.R
 import com.example.myrecipes.data.models.Recipe
 
 /**
- * Reference: Philip Lackner, https://www.youtube.com/watch?v=wGDX9zjWQzE&list=PLQkwcJG4YTCRF8XiCRESq1IFFW8COlxYJ&index=6
+ * References:
+ * Philip Lackner, https://www.youtube.com/watch?v=wGDX9zjWQzE&list=PLQkwcJG4YTCRF8XiCRESq1IFFW8COlxYJ&index=6
+ * https://developer.android.com/codelabs/android-room-with-a-view-kotlin#11
  */
-class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(RecipeComparator()) {
 
-    inner class RecipeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+        return RecipeViewHolder.create(parent)
+    }
+
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+        val recipe = getItem(position)
+        holder.bind(recipe)
+        // TODO set onItemClickListener here?
+    }
+
+    class RecipeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         // Declare and initialize all of the list item UI components
-        val recipeNameTextView: TextView = itemView.findViewById(R.id.item_recipe_name)
-        val recipeLinkTextView: TextView = itemView.findViewById(R.id.recipe_link)
-        val recipeRatingTextView: TextView = itemView.findViewById(R.id.recipe_rating)
-        val recipeNotesTextView: TextView = itemView.findViewById(R.id.recipe_notes)
+        private val recipeNameItemView: TextView = itemView.findViewById(R.id.item_recipe_name)
+        private val recipeLinkItemView: TextView = itemView.findViewById(R.id.item_link)
+        private val recipeRatingItemView: TextView = itemView.findViewById(R.id.item_rating)
+        private val recipeNotesItemView: TextView = itemView.findViewById(R.id.item_notes)
+
+        fun bind(recipe: Recipe?) {
+            recipeNameItemView.text = recipe?.recipeName
+            recipeLinkItemView.text = recipe?.recipeLink
+            recipeRatingItemView.text = recipe?.rating
+            recipeNotesItemView.text = recipe?.notes
+        }
+
+        companion object {
+            fun create(parent: ViewGroup): RecipeViewHolder {
+                val view: View = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_preview_recipe_saved, parent, false)
+                return RecipeViewHolder(view)
+            }
+        }
     }
 
     // TODO - learning: look up DiffUtil
-    private val differCallback = object : DiffUtil.ItemCallback<Recipe>() {
+    // Else the below is boilerplate
+    class RecipeComparator: DiffUtil.ItemCallback<Recipe>() {
         override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
             return oldItem.id == newItem.id
         }
@@ -32,36 +60,6 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
             return oldItem == newItem
         }
-    }
-
-    // Manages the list
-    val differ = AsyncListDiffer(this, differCallback)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        return RecipeViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_preview_recipe_saved,
-                parent,
-                false
-            )
-        )
-    }
-
-    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val recipe = differ.currentList[position]
-        holder.apply {
-            recipeNameTextView.text = recipe.recipeName
-            recipeLinkTextView.text = recipe.recipeLink
-            recipeRatingTextView.text = recipe.rating
-            recipeNotesTextView.text = recipe.notes
-            itemView.setOnClickListener {
-                onItemClickListener?.let { it(recipe) }
-            }
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
     }
 
     // Below enables each RecyclerView item to be clicked

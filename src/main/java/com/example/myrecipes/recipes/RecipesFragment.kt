@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.myrecipes.R
+import com.example.myrecipes.data.models.Recipe
 import com.example.myrecipes.databinding.FragmentRecipesInputBinding
 
 class RecipesFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipesInputBinding
 
-    private val viewModel: RecipesViewModel by viewModels()
+    private val viewModel: RecipesViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,17 +42,20 @@ class RecipesFragment : Fragment() {
 
         binding.saveButton.setOnClickListener { saveRecipe() }
         binding.viewSavedButton.setOnClickListener {
-            // TODO Navigate to saved recipes fragment using Navigation
-            // https://developer.android.com/guide/navigation/navigation-getting-started
+            // TODO - If you wanted to save without button, call saveRecipe() here
             findNavController().navigate(R.id.action_recipesFragment_to_savedRecipesFragment)
         }
     }
 
     private fun saveRecipe() {
-        viewModel.recipeName = binding.recipeName.toString()
-        viewModel.recipeLink = binding.recipeLink.toString()
-        viewModel.rating = binding.recipeRating.toString()
-        viewModel.notes = binding.recipeNotes.toString()
+        val recipe = Recipe(
+            recipeName = binding.recipeName.text.toString(),
+            recipeLink = binding.recipeLink.text.toString(),
+            rating = binding.recipeRating.text.toString(),
+            notes = binding.recipeNotes.text.toString()
+        )
+        viewModel.saveRecipe(recipe)
+
         Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
     }
 }

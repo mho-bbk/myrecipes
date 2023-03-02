@@ -12,8 +12,9 @@ import com.example.myrecipes.data.models.Recipe
 // Databases for Room always need to be abstract
 // Versioning informs Room when we make updates
 @Database(
-    entities = [Recipe::class],
-    version = 1
+    entities = arrayOf(Recipe::class),
+    version = 1,
+    exportSchema = false
 )
 abstract class RecipeDatabase : RoomDatabase() {
 
@@ -21,21 +22,23 @@ abstract class RecipeDatabase : RoomDatabase() {
 
     companion object {
         // Volatile = other threads can see when this database is volatile
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
         @Volatile
-        private var instance: RecipeDatabase? = null
+        private var INSTANCE: RecipeDatabase? = null
 
-        // Use LOCK to ensure only ever one DB
-        private val LOCK = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            // Anything here cannot be accessed by other threads
-            instance ?: createDatabase(context).also { instance = it }
-        }
-
-        private fun createDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext,
-            RecipeDatabase::class.java,
-            "recipes_db.db"
-        ).build()
+       fun getDatabase(context: Context): RecipeDatabase {
+           // if the INSTANCE is not null, then return it,
+           // if it is, then create the database
+           return INSTANCE ?: synchronized(this) {
+               val instance = Room.databaseBuilder(
+                   context.applicationContext,
+                   RecipeDatabase::class.java,
+                   "room_db"
+               ).build()
+               INSTANCE = instance
+               instance
+           }
+       }
     }
 }
