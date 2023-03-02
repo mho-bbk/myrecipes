@@ -5,6 +5,7 @@
 [x] When phone rotates, ensure full screen is visible - implemented ScrollView
 [x] When phone rotates, ensure conversion is retained - implemented ViewModel
 [ ] (When there is more logic) Write unit tests for RecipesViewModel
+[ ] Fix RecyclerView UI so that it is smaller and more intuitive to the screen/to scroll
 
 # New Features
 + Improve UI (make prettier) while adhering to accessibility guidelines

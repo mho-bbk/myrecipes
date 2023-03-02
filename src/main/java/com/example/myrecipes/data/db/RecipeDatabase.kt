@@ -41,7 +41,7 @@ abstract class RecipeDatabase : RoomDatabase() {
             recipeDao.deleteAll()
 
             // Add sample recipes
-            var recipe = Recipe(
+            val recipe = Recipe(
                 id = 0,
                 recipeName = "Not real recipe",
                 recipeLink = "notreal.com",
@@ -71,7 +71,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                val instance = Room.databaseBuilder(
                    context.applicationContext,
                    RecipeDatabase::class.java,
-                   "room_db"
+                   "room_db.db"
                )
                    .addCallback(RecipeDatabaseCallback(scope))
                    .build()

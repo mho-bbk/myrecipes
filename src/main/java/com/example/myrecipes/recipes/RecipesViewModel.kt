@@ -21,16 +21,3 @@ class RecipesViewModel(
         recipeRepository.upsert(recipe)
     }
 }
-
-class RecipesViewModelProviderFactory(
-    private val recipeRepository: RecipeRepository
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RecipesViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return RecipesViewModel(recipeRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
