@@ -1,16 +1,16 @@
 # Tasks / Fixes
 
 ## Feature: Converter
-[ ] In horizontal mode, there should be a space of at least X dp between the conversion text 
+- [ ] In horizontal mode, there should be a space of at least X dp between the conversion text 
     and the end of the screen
-[ ] Increase the font size for the conversion text
-[x] When phone rotates, ensure full screen is visible - implemented ScrollView
-[x] When phone rotates, ensure conversion is retained - implemented ViewModel
+- [ ] Increase the font size for the conversion text
+- [x] When phone rotates, ensure full screen is visible - implemented ScrollView
+- [x] When phone rotates, ensure conversion is retained - implemented ViewModel
 
 ## Feature: My Recipes Collection
-[ ] (When there is more logic) Write unit tests for RecipesViewModel
-[ ] Fix RecyclerView UI so that it is smaller and more intuitive to the screen/to scroll
-[ ] Could add image to recyclerview per recipe
+- [ ] (When there is more logic) Write unit tests for RecipesViewModel
+- [ ] Fix RecyclerView UI so that it is smaller and more intuitive to the screen/to scroll
+- [ ] Could add image to recyclerview per recipe
 
 # New Features
 + Improve UI (make prettier) while adhering to accessibility guidelines
