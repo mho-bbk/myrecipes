@@ -5,6 +5,7 @@
     <string name="recipe_rating">Recipe Rating</string>
     <string name="recipe_notes">Recipe Notes</string>
     <string name="save">Save</string>
+    <string name="view_saved">View saved recipes</string>
 
     <!-- Converter -->
     <string name="app_name">MyRecipes</string>

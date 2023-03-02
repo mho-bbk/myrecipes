@@ -39,6 +39,7 @@ class RecipesFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.saveButton.setOnClickListener { saveRecipe() }
+//        binding.viewSavedButton.setOnClickListener { //Navigate to saved recipes fragment using Navigation }
     }
 
     private fun saveRecipe() {

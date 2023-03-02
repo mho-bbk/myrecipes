@@ -14,3 +14,4 @@
 + (EPIC) Save Conversions - Enables user to save conversions to their recipes collection. 
    Must have provision to save multiple conversions to one recipe.
 + (EPIC) Export feature, to ensure recipes collection can be backed up if local storage fails. 
++ What is Glide and can it be used to insert images into our RecyclerView?
