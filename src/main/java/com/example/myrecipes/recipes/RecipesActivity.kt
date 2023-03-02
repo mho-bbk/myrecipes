@@ -7,6 +7,6 @@ import com.example.myrecipes.R
 class RecipesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recipes_input)
+        setContentView(R.layout.activity_recipes)
     }
 }

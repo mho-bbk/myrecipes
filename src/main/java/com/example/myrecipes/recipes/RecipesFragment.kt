@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.myrecipes.R
 import com.example.myrecipes.databinding.FragmentRecipesInputBinding
 
@@ -39,7 +40,11 @@ class RecipesFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.saveButton.setOnClickListener { saveRecipe() }
-//        binding.viewSavedButton.setOnClickListener { //Navigate to saved recipes fragment using Navigation }
+        binding.viewSavedButton.setOnClickListener {
+            // TODO Navigate to saved recipes fragment using Navigation
+            // https://developer.android.com/guide/navigation/navigation-getting-started
+            findNavController().navigate(R.id.action_recipesFragment_to_savedRecipesFragment)
+        }
     }
 
     private fun saveRecipe() {
