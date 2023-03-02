@@ -2,6 +2,7 @@
 [ ] In horizontal mode, there should be a space of at least X dp between the conversion text 
     and the end of the screen
 [ ] Increase the font size for the conversion text
+[ ] Create RecipeFragment; connect RecipeFragment with the xml screens; implement data binding; implement ScrollView in 
 [x] When phone rotates, ensure full screen is visible - implemented ScrollView
 [x] When phone rotates, ensure conversion is retained - implemented ViewModel
 [x] Write unit tests for ConverterViewModel
