@@ -55,7 +55,6 @@ class ConverterFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Set up click listener for convert button
         binding.conversionButton.setOnClickListener { convert() }
     }
 

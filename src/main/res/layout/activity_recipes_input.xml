@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/recipes_input_fragment"
-        android:name="com.example.myrecipes.recipes.RecipesActivity"
+        android:name="com.example.myrecipes.recipes.RecipesFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
