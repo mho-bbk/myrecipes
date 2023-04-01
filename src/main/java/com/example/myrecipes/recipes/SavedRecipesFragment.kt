@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myrecipes.R
 import com.example.myrecipes.adapters.RecipeAdapter
@@ -14,7 +14,7 @@ import com.example.myrecipes.databinding.FragmentRecipesSavedBinding
 
 class SavedRecipesFragment : Fragment(R.layout.fragment_recipes_saved) {
 
-    private val viewModel: RecipesViewModel by activityViewModels()
+    private val viewModel: SavedRecipesViewModel by viewModels { SavedRecipesViewModel.Factory }
 
     private lateinit var binding: FragmentRecipesSavedBinding
 

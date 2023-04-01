@@ -11,6 +11,7 @@
 - [ ] (When there is more logic) Write unit tests for RecipesViewModel
 - [ ] Fix RecyclerView UI so that it is smaller and more intuitive to the screen/to scroll
 - [ ] Could add image to recyclerview per recipe
+- [x] Un-share the ViewModel; move shared logic to a repository
 
 # New Features
 + Improve UI (make prettier) while adhering to accessibility guidelines

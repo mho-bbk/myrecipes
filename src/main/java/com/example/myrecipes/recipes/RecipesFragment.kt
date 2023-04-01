@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.myrecipes.R
 import com.example.myrecipes.data.models.Recipe
@@ -17,7 +16,7 @@ class RecipesFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipesInputBinding
 
-    private val viewModel: RecipesViewModel by activityViewModels()
+    private val viewModel: RecipesViewModel by viewModels { RecipesViewModel.Factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +54,5 @@ class RecipesFragment : Fragment() {
             notes = binding.recipeNotes.text.toString()
         )
         viewModel.saveRecipe(recipe)
-
-        Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
     }
 }
