@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myrecipes.R
 import com.example.myrecipes.adapters.RecipeAdapter
@@ -33,17 +34,19 @@ class SavedRecipesFragment : Fragment(R.layout.fragment_recipes_saved) {
         super.onViewCreated(view, savedInstanceState)
 
         val recipeAdapter = RecipeAdapter()
-        setupRecyclerView(recipeAdapter)
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        setupRecyclerView(recipeAdapter, layoutManager)
 
         viewModel.allRecipes.observe(viewLifecycleOwner) { recipes ->
             recipes?.let { recipeAdapter.submitList(it) }
         }
     }
 
-    private fun setupRecyclerView(recipeAdapter: RecipeAdapter) {
+    private fun setupRecyclerView(recipeAdapter: RecipeAdapter, layoutManager: LinearLayoutManager) {
         binding.savedRecipes.apply {
             adapter = recipeAdapter
-            layoutManager = LinearLayoutManager(activity)
+            this.layoutManager = layoutManager
+            this.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
         }
     }
 
