@@ -1,21 +1,21 @@
 package com.example.myrecipes.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myrecipes.R
 import com.example.myrecipes.data.models.Recipe
+import com.example.myrecipes.databinding.ItemPreviewRecipeSavedBinding
 
 /**
  * References:
- * Philip Lackner, https://www.youtube.com/watch?v=wGDX9zjWQzE&list=PLQkwcJG4YTCRF8XiCRESq1IFFW8COlxYJ&index=6
- * https://developer.android.com/codelabs/android-room-with-a-view-kotlin#11
+ * - Philip Lackner, https://www.youtube.com/watch?v=wGDX9zjWQzE&list=PLQkwcJG4YTCRF8XiCRESq1IFFW8COlxYJ&index=6
+ * - https://developer.android.com/codelabs/android-room-with-a-view-kotlin#11
+ * - https://developer.android.com/codelabs/kotlin-android-training-interacting-with-items#3
  */
-class RecipeAdapter : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(RecipeComparator()) {
+class RecipeAdapter(private val deleteButtonListener: RecipeDeleteButtonListener)
+    : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(RecipeComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         return RecipeViewHolder.create(parent)
@@ -23,29 +23,24 @@ class RecipeAdapter : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(Recipe
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val recipe = getItem(position)
-        holder.bind(recipe)
-        // TODO set onItemClickListener here?
+        holder.bind(recipe, deleteButtonListener)
     }
 
-    class RecipeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        // Declare and initialize all of the list item UI components
-        private val recipeNameItemView: TextView = itemView.findViewById(R.id.item_recipe_name)
-        private val recipeLinkItemView: TextView = itemView.findViewById(R.id.item_link)
-        private val recipeRatingItemView: TextView = itemView.findViewById(R.id.item_rating)
-        private val recipeNotesItemView: TextView = itemView.findViewById(R.id.item_notes)
+    class RecipeViewHolder private constructor(val binding: ItemPreviewRecipeSavedBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recipe: Recipe?) {
-            recipeNameItemView.text = recipe?.recipeName
-            recipeLinkItemView.text = recipe?.recipeLink
-            recipeRatingItemView.text = recipe?.rating
-            recipeNotesItemView.text = recipe?.notes
+        fun bind(recipe: Recipe?, deleteButtonListener: RecipeDeleteButtonListener) {
+            binding.itemRecipeName.text = recipe?.recipeName
+            binding.itemLink.text = recipe?.recipeLink
+            binding.itemRating.text = recipe?.rating
+            binding.itemNotes.text = recipe?.notes
+            binding.deleteRecipeButton.setOnClickListener { deleteButtonListener.clickListener.invoke(recipe) }
         }
 
         companion object {
             fun create(parent: ViewGroup): RecipeViewHolder {
-                val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_preview_recipe_saved, parent, false)
-                return RecipeViewHolder(view)
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemPreviewRecipeSavedBinding.inflate(layoutInflater, parent, false)
+                return RecipeViewHolder(binding)
             }
         }
     }
@@ -61,11 +56,6 @@ class RecipeAdapter : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(Recipe
             return oldItem == newItem
         }
     }
-
-    // Below enables each RecyclerView item to be clicked
-    private var onItemClickListener: ((Recipe) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (Recipe) -> Unit) {
-        onItemClickListener = listener
-    }
 }
+
+class RecipeDeleteButtonListener(val clickListener: (recipe: Recipe?) -> Unit)

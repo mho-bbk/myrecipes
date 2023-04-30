@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myrecipes.R
 import com.example.myrecipes.adapters.RecipeAdapter
+import com.example.myrecipes.adapters.RecipeDeleteButtonListener
 import com.example.myrecipes.databinding.FragmentRecipesSavedBinding
 
 class SavedRecipesFragment : Fragment(R.layout.fragment_recipes_saved) {
@@ -33,7 +35,9 @@ class SavedRecipesFragment : Fragment(R.layout.fragment_recipes_saved) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recipeAdapter = RecipeAdapter()
+        val recipeAdapter = RecipeAdapter(RecipeDeleteButtonListener {
+                recipe -> Toast.makeText(context, "Hello this is ${recipe?.id}", Toast.LENGTH_LONG).show()
+        })
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         setupRecyclerView(recipeAdapter, layoutManager)
 

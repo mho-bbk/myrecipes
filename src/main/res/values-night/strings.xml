@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save Recipe Fragment -->
+    <string name="delete_button">Delete button</string>
+    <string name="link">Link:</string>
+    <string name="notes">Notes:</string>
+    <string name="rating">Rating:</string>
+    <string name="name">Name:</string>
+</resources>

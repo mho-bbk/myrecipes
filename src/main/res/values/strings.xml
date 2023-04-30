@@ -18,6 +18,13 @@
     <string name="x_cups_to_x_grams">%.2f cups to %.2f grams</string>
     <string name="invalid_input">Invalid value. Try again.</string>
 
+    <!-- Save Recipe Fragment -->
+    <string name="delete_button">Delete button</string>
+    <string name="link">Link:</string>
+    <string name="notes">Notes:</string>
+    <string name="rating">Rating:</string>
+    <string name="name">Name:</string>
+
     <!-- Ingredients for Converter Spinner -->
     <string-array name="ingredients">
         <item>Flour</item>
