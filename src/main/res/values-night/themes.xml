@@ -12,5 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/sunshine</item>
+<!--        <item name="android:textColor">@color/black</item>
+           TODO this doesn't work with spinner
+            Try: https://stackoverflow.com/questions/9476665/how-to-change-spinner-text-size-and-text-color
+-->
+    </style>
+    <!-- Saved Recipes Card Style -->
+    <style name="SavedRecipeCardTheme">
+        <item name="cardBackgroundColor">@color/card_bg_purple</item>
     </style>
 </resources>

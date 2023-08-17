@@ -14,8 +14,10 @@ import com.example.myrecipes.databinding.ItemPreviewRecipeSavedBinding
  * - https://developer.android.com/codelabs/android-room-with-a-view-kotlin#11
  * - https://developer.android.com/codelabs/kotlin-android-training-interacting-with-items#3
  */
-class RecipeAdapter(private val deleteButtonListener: RecipeDeleteButtonListener)
-    : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(RecipeComparator()) {
+class RecipeAdapter(
+    private val deleteButtonListener: RecipeDeleteButtonListener,
+    private val linkListener: RecipeLinkNavigationListener
+) : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(RecipeComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         return RecipeViewHolder.create(parent)
@@ -23,17 +25,26 @@ class RecipeAdapter(private val deleteButtonListener: RecipeDeleteButtonListener
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val recipe = getItem(position)
-        holder.bind(recipe, deleteButtonListener)
+        holder.bind(recipe, deleteButtonListener, linkListener)
     }
 
     class RecipeViewHolder private constructor(val binding: ItemPreviewRecipeSavedBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recipe: Recipe?, deleteButtonListener: RecipeDeleteButtonListener) {
+        fun bind(
+            recipe: Recipe?,
+            deleteButtonListener: RecipeDeleteButtonListener,
+            linkListener: RecipeLinkNavigationListener
+        ) {
             binding.itemRecipeName.text = recipe?.recipeName
-            binding.itemLink.text = recipe?.recipeLink
+            with(binding.itemLink) {
+                text = recipe?.recipeLink
+                setOnClickListener { linkListener.clickListener.invoke(text.toString()) }
+            }
             binding.itemRating.text = recipe?.rating
             binding.itemNotes.text = recipe?.notes
-            binding.deleteRecipeButton.setOnClickListener { deleteButtonListener.clickListener.invoke(recipe) }
+            binding.deleteRecipeButton.setOnClickListener {
+                deleteButtonListener.clickListener.invoke(recipe)
+            }
         }
 
         companion object {
@@ -59,3 +70,4 @@ class RecipeAdapter(private val deleteButtonListener: RecipeDeleteButtonListener
 }
 
 class RecipeDeleteButtonListener(val clickListener: (recipe: Recipe?) -> Unit)
+class RecipeLinkNavigationListener(val clickListener: (url: String) -> Unit)

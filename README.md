@@ -16,8 +16,12 @@
   + https://androidexample365.com/celebrate-more-with-this-lightweight-confetti-particle-system/)
 - [ ] Fix logic: if all fields in the form are blank, then do not save
 - [ ] Deploy edit functionality for each saved recipe
-- [ ] Make recipe link clickable (reference: https://developer.android.com/training/app-links?authuser=1)
+- [x] Make recipe link clickable (~reference: https://developer.android.com/training/app-links?authuser=1~ - not deeplink)
+- [ ] Make each recipe item clickable -> RecipeDetails screen
 - [x] Un-share the ViewModel; move shared logic to a repository
+- [ ] Update UI to reflect new designs including:
+  + Top navigation bar
+  + Saved recipes cards - In progress
 
 ## General App Fixes
 - [ ] Fix back stack behaviour. After a recipe has saved and the user moves to saved recipes screen, back should take you back to an EMPTY form.
